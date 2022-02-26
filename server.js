@@ -4,6 +4,7 @@ import notFoundMiddleware from "./middleware/not-found.js";
 const app = express();
 import dotenv from "dotenv";
 dotenv.config();
+import "express-async-errors";
 
 //db and authenticator
 import connectDB from "./db/connect.js";
