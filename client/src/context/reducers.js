@@ -1,6 +1,9 @@
 import {
 	CLEAR_ALERT,
 	DISPLAY_ALERT,
+	LOGIN_USER_BEGIN,
+	LOGIN_USER_ERROR,
+	LOGIN_USER_SUCCESS,
 	REGISTER_USER_BEGIN,
 	REGISTER_USER_ERROR,
 	REGISTER_USER_SUCCESS,
@@ -32,6 +35,28 @@ const reducer = (state, action) => {
 				alertText: "User created! Redirecting...",
 			};
 		case REGISTER_USER_ERROR:
+			return {
+				...state,
+				isLoading: false,
+				showAlert: true,
+				alertType: "danger",
+				alertText: action.payload.msg,
+			};
+		case LOGIN_USER_BEGIN:
+			return { ...state, isLoading: true };
+		case LOGIN_USER_SUCCESS:
+			return {
+				...state,
+				user: action.payload.user,
+				token: action.payload.token,
+				userLocation: action.payload.location,
+				jobLocation: action.payload.location,
+				isLoading: false,
+				showAlert: true,
+				alertType: "success",
+				alertText: "Login Successful! Redirecting...",
+			};
+		case LOGIN_USER_ERROR:
 			return {
 				...state,
 				isLoading: false,
