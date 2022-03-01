@@ -4,10 +4,13 @@ import {
 	LOGIN_USER_BEGIN,
 	LOGIN_USER_ERROR,
 	LOGIN_USER_SUCCESS,
+	LOGOUT_USER,
 	REGISTER_USER_BEGIN,
 	REGISTER_USER_ERROR,
 	REGISTER_USER_SUCCESS,
+	TOGGLE_SIDEBAR,
 } from "./actions";
+import { initialState } from "./appContext";
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -64,6 +67,16 @@ const reducer = (state, action) => {
 				alertType: "danger",
 				alertText: action.payload.msg,
 			};
+		case LOGOUT_USER:
+			return {
+				...initialState,
+				user: null,
+				token: null,
+				userLocation: null,
+				jobLocation: null,
+			};
+		case TOGGLE_SIDEBAR:
+			return { ...state, showSidebar: !state.showSidebar };
 		default:
 			return state;
 	}
