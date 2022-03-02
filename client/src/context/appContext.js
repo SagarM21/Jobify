@@ -100,7 +100,11 @@ const AppProvider = ({ children }) => {
 
 	const logoutUser = () => {
 		dispatch({ type: LOGOUT_USER });
-		removeUserFromLocalStorage()
+		removeUserFromLocalStorage();
+	};
+
+	const updateUser = async (currentUser) => {
+		console.log(currentUser);
 	};
 
 	const toggleSidebar = () => {
@@ -114,6 +118,7 @@ const AppProvider = ({ children }) => {
 				displayAlert,
 				registerUser,
 				loginUser,
+				updateUser,
 				toggleSidebar,
 				logoutUser,
 			}}
