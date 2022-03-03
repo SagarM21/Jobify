@@ -1,7 +1,12 @@
 import React, { useContext, useReducer } from "react";
 import {
 	CLEAR_ALERT,
+	CLEAR_VALUES,
+	CREATE_JOB_BEGIN,
+	CREATE_JOB_ERROR,
+	CREATE_JOB_SUCCESS,
 	DISPLAY_ALERT,
+	HANDLE_CHANGE,
 	LOGIN_USER_BEGIN,
 	LOGIN_USER_ERROR,
 	LOGIN_USER_SUCCESS,
@@ -31,6 +36,15 @@ const initialState = {
 	userLocation: userLocation || "",
 	jobLocation: userLocation || "",
 	showSidebar: false,
+	isEditing: false,
+	editJobId: "",
+	position: "",
+	company: "",
+	//jobLocation
+	jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
+	jobType: "full-time",
+	statusOptions: ["pending", "interview", "declined"],
+	status: "pending",
 };
 
 const AppContext = React.createContext();
@@ -158,6 +172,37 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
+	const createJob = async () => {
+		dispatch({ type: CREATE_JOB_BEGIN });
+		try {
+			const { position, company, jobLocation, jobType, status } = state;
+			await authFetch.post("/jobs", {
+				company,
+				position,
+				jobLocation,
+				jobType,
+				status,
+			});
+			dispatch({ type: CREATE_JOB_SUCCESS });
+			dispatch({ type: CLEAR_VALUES });
+		} catch (error) {
+			if (error.response.status === 401) return;
+			dispatch({
+				type: CREATE_JOB_ERROR,
+				payload: { msg: error.response.data.msg },
+			});
+		}
+		clearAlert();
+	};
+
+	const handleChange = ({ name, value }) => {
+		dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+	};
+
+	const clearValues = () => {
+		dispatch({ type: CLEAR_VALUES });
+	};
+
 	const toggleSidebar = () => {
 		dispatch({ type: TOGGLE_SIDEBAR });
 	};
@@ -171,7 +216,10 @@ const AppProvider = ({ children }) => {
 				loginUser,
 				updateUser,
 				toggleSidebar,
+				handleChange,
+				clearValues,
 				logoutUser,
+				createJob,
 			}}
 		>
 			{children}{" "}
