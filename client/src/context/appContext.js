@@ -21,6 +21,8 @@ import {
 	REGISTER_USER_ERROR,
 	REGISTER_USER_SUCCESS,
 	SET_EDIT_JOB,
+	SHOW_STATS_BEGIN,
+	SHOW_STATS_SUCCESS,
 	TOGGLE_SIDEBAR,
 	UPDATE_USER_BEGIN,
 	UPDATE_USER_ERROR,
@@ -56,6 +58,8 @@ const initialState = {
 	totalJobs: 0,
 	page: 1,
 	numOfPages: 1,
+	stats: {},
+	monthlyApplications: [],
 };
 
 const AppContext = React.createContext();
@@ -272,6 +276,24 @@ const AppProvider = ({ children }) => {
 		}
 	};
 
+	const showStats = async () => {
+		dispatch({ type: SHOW_STATS_BEGIN });
+		try {
+			const { data } = await authFetch("/jobs/stats");
+			dispatch({
+				type: SHOW_STATS_SUCCESS,
+				payload: {
+					stats: data.defaultStats,
+					monthlyApplications: data.monthlyApplications,
+				},
+			});
+		} catch (error) {
+			console.log(error.response);
+			// logoutUser();
+		}
+		clearAlert();
+	};
+
 	useEffect(() => {
 		getJobs();
 	}, []);
@@ -293,6 +315,7 @@ const AppProvider = ({ children }) => {
 				setEditJob,
 				editJob,
 				deleteJob,
+				showStats,
 			}}
 		>
 			{children}{" "}

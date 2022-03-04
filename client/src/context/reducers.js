@@ -20,6 +20,8 @@ import {
 	REGISTER_USER_ERROR,
 	REGISTER_USER_SUCCESS,
 	SET_EDIT_JOB,
+	SHOW_STATS_BEGIN,
+	SHOW_STATS_SUCCESS,
 	TOGGLE_SIDEBAR,
 	UPDATE_USER_BEGIN,
 	UPDATE_USER_ERROR,
@@ -202,6 +204,15 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				...initState,
+			};
+		case SHOW_STATS_BEGIN:
+			return { ...state, isLoading: true, showAlert: false };
+		case SHOW_STATS_SUCCESS:
+			return {
+				...state,
+				isLoading: false,
+				stats: action.payload.stats,
+				monthlyApplications: action.payload.monthlyApplications,
 			};
 		default:
 			return state;

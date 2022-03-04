@@ -7,8 +7,13 @@ import BigSidebar from "./BigSidebar";
 import FormRowSelect from "./FormRowSelect";
 import JobsContainer from "./JobsContainer";
 import SearchContainer from "./SearchContainer";
+import StatsContainer from "./StatsContainer";
+import ChartsContainer from "./ChartsContainer";
+import StatsItem from "./StatsItem";
+import Loading from "./Loading";
 
 export {
+	Loading,
 	Logo,
 	FormRow,
 	Alert,
@@ -18,4 +23,7 @@ export {
 	FormRowSelect,
 	SearchContainer,
 	JobsContainer,
+	StatsContainer,
+	ChartsContainer,
+	StatsItem,
 };
