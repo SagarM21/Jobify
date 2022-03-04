@@ -5,6 +5,8 @@ import {
 	CREATE_JOB_ERROR,
 	CREATE_JOB_SUCCESS,
 	DISPLAY_ALERT,
+	GET_JOB_BEGIN,
+	GET_JOB_SUCCESS,
 	HANDLE_CHANGE,
 	LOGIN_USER_BEGIN,
 	LOGIN_USER_ERROR,
@@ -130,10 +132,22 @@ const reducer = (state, action) => {
 				alertText: action.payload.msg,
 			};
 
+		case GET_JOB_BEGIN:
+			return { ...state, isLoading: true, showAlert: false };
+
+		case GET_JOB_SUCCESS:
+			return {
+				...state,
+				isLoading: false,
+				jobs: action.payload.jobs,
+				totalJobs: action.payload.totalJobs,
+				numOfPages: action.payload.numOfPages,
+			};
+
 		case TOGGLE_SIDEBAR:
 			return { ...state, showSidebar: !state.showSidebar };
 		case CLEAR_VALUES:
-			const initialState = {
+			const initState = {
 				isEditing: false,
 				editJobId: "",
 				position: "",
@@ -145,7 +159,7 @@ const reducer = (state, action) => {
 
 			return {
 				...state,
-				...initialState,
+				...initState,
 			};
 		default:
 			return state;

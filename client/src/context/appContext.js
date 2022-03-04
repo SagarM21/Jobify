@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import {
 	CLEAR_ALERT,
 	CLEAR_VALUES,
@@ -6,6 +6,8 @@ import {
 	CREATE_JOB_ERROR,
 	CREATE_JOB_SUCCESS,
 	DISPLAY_ALERT,
+	GET_JOB_BEGIN,
+	GET_JOB_SUCCESS,
 	HANDLE_CHANGE,
 	LOGIN_USER_BEGIN,
 	LOGIN_USER_ERROR,
@@ -45,6 +47,10 @@ const initialState = {
 	jobType: "full-time",
 	statusOptions: ["pending", "interview", "declined"],
 	status: "pending",
+	jobs: [],
+	totalJobs: 0,
+	page: 1,
+	numOfPages: 1,
 };
 
 const AppContext = React.createContext();
@@ -195,6 +201,23 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
+	const getJobs = async () => {
+		let url = "/jobs";
+		dispatch({ type: GET_JOB_BEGIN });
+		try {
+			const { data } = await authFetch(url);
+			const { jobs, totalJobs, numOfPages } = data;
+			dispatch({
+				type: GET_JOB_SUCCESS,
+				payload: { jobs, totalJobs, numOfPages },
+			});
+		} catch (error) {
+			console.log(error.response);
+			logoutUser();
+		}
+		clearAlert();
+	};
+
 	const handleChange = ({ name, value }) => {
 		dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
 	};
@@ -206,6 +229,18 @@ const AppProvider = ({ children }) => {
 	const toggleSidebar = () => {
 		dispatch({ type: TOGGLE_SIDEBAR });
 	};
+
+	const setEditJob = (id) => {
+		console.log(`set edit job: ${id}`);
+	};
+
+	const deleteJob = (id) => {
+		console.log(`delete : ${id}`);
+	};
+
+	useEffect(() => {
+		getJobs();
+	}, []);
 
 	return (
 		<AppContext.Provider
@@ -219,7 +254,10 @@ const AppProvider = ({ children }) => {
 				handleChange,
 				clearValues,
 				logoutUser,
+				getJobs,
 				createJob,
+				setEditJob,
+				deleteJob
 			}}
 		>
 			{children}{" "}
