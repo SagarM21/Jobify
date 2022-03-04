@@ -16,6 +16,7 @@ import {
 	REGISTER_USER_BEGIN,
 	REGISTER_USER_ERROR,
 	REGISTER_USER_SUCCESS,
+	SET_EDIT_JOB,
 	TOGGLE_SIDEBAR,
 	UPDATE_USER_BEGIN,
 	UPDATE_USER_ERROR,
@@ -231,7 +232,11 @@ const AppProvider = ({ children }) => {
 	};
 
 	const setEditJob = (id) => {
-		console.log(`set edit job: ${id}`);
+		dispatch({ type: SET_EDIT_JOB, payload: { id } });
+	};
+
+	const editJob = () => {
+		console.log("Edit Job");
 	};
 
 	const deleteJob = (id) => {
@@ -257,7 +262,8 @@ const AppProvider = ({ children }) => {
 				getJobs,
 				createJob,
 				setEditJob,
-				deleteJob
+				editJob,
+				deleteJob,
 			}}
 		>
 			{children}{" "}

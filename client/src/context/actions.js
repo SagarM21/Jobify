@@ -20,6 +20,8 @@ export const CREATE_JOB_ERROR = "CREATE_JOB_ERROR";
 export const GET_JOB_BEGIN = "GET_JOB_BEGIN";
 export const GET_JOB_SUCCESS = "GET_JOB_SUCCESS";
 
+export const SET_EDIT_JOB = "SET_EDIT_JOB";
+
 export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
 
 export const HANDLE_CHANGE = "HANDLE_CHANGE";
