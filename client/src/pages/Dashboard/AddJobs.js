@@ -19,7 +19,7 @@ const AddJobs = () => {
 		handleChange,
 		clearValues,
 		createJob,
-		editJob
+		editJob,
 	} = useAppContext();
 
 	const handleSubmit = (e) => {
@@ -30,7 +30,7 @@ const AddJobs = () => {
 			return;
 		}
 		if (isEditing) {
-			editJob()
+			editJob();
 			return;
 		}
 		createJob();
@@ -48,8 +48,8 @@ const AddJobs = () => {
 				<h3>{isEditing ? "edit job" : "add job"}</h3>
 				{showAlert && <Alert />}
 
-				{/* position */}
 				<div className='form-center'>
+					{/* position */}
 					<FormRow
 						type='text'
 						name='position'
