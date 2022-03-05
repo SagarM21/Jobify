@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import {
 	CLEAR_ALERT,
+	CLEAR_FILTERS,
 	CLEAR_VALUES,
 	CREATE_JOB_BEGIN,
 	CREATE_JOB_ERROR,
@@ -60,6 +61,11 @@ const initialState = {
 	numOfPages: 1,
 	stats: {},
 	monthlyApplications: [],
+	search: "",
+	searchStatus: "all",
+	searchType: "all",
+	sort: "latest",
+	sortOptions: ["latest", "oldest", "a-z", "z-a"],
 };
 
 const AppContext = React.createContext();
@@ -106,6 +112,10 @@ const AppProvider = ({ children }) => {
 		setTimeout(() => {
 			dispatch({ type: CLEAR_ALERT });
 		}, 3000);
+	};
+
+	const clearFilters = () => {
+		dispatch({ type: CLEAR_FILTERS });
 	};
 
 	const addUserToLocalStorage = ({ user, token, location }) => {
@@ -211,7 +221,11 @@ const AppProvider = ({ children }) => {
 	};
 
 	const getJobs = async () => {
-		let url = "/jobs";
+		const { search, searchStatus, searchType, sort } = state;
+		let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
+		if (search) {
+			url = url + `&search=${search}`;
+		}
 		dispatch({ type: GET_JOB_BEGIN });
 		try {
 			const { data } = await authFetch(url);
@@ -316,6 +330,7 @@ const AppProvider = ({ children }) => {
 				editJob,
 				deleteJob,
 				showStats,
+				clearFilters,
 			}}
 		>
 			{children}{" "}

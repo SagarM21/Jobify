@@ -32,6 +32,7 @@ export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
 
 export const HANDLE_CHANGE = "HANDLE_CHANGE";
 export const CLEAR_VALUES = "CLEAR_VALUES";
+export const CLEAR_FILTERS = "CLEAR_FILTERS";
 
 export const LOGOUT_USER = "LOGOUT_USER";
 

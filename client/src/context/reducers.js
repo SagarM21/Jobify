@@ -1,5 +1,6 @@
 import {
 	CLEAR_ALERT,
+	CLEAR_FILTERS,
 	CLEAR_VALUES,
 	CREATE_JOB_BEGIN,
 	CREATE_JOB_ERROR,
@@ -204,6 +205,15 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				...initState,
+			};
+
+		case CLEAR_FILTERS:
+			return {
+				...state,
+				search: "",
+				searchStatus: "all",
+				searchType: "all",
+				sort: "latest",
 			};
 		case SHOW_STATS_BEGIN:
 			return { ...state, isLoading: true, showAlert: false };
