@@ -1,4 +1,5 @@
 import {
+	CHANGE_PAGE,
 	CLEAR_ALERT,
 	CLEAR_FILTERS,
 	CLEAR_VALUES,
@@ -117,7 +118,10 @@ const reducer = (state, action) => {
 				alertText: action.payload.msg,
 			};
 		case HANDLE_CHANGE:
-			return { ...state, [action.payload.name]: action.payload.value };
+			return { ...state, page: 1, [action.payload.name]: action.payload.value };
+			{
+				/* By default, search will  start from 1st page*/
+			}
 
 		case CREATE_JOB_BEGIN:
 			return { ...state, isLoading: true };
@@ -224,6 +228,8 @@ const reducer = (state, action) => {
 				stats: action.payload.stats,
 				monthlyApplications: action.payload.monthlyApplications,
 			};
+		case CHANGE_PAGE:
+			return { ...state, page: action.payload.page };
 		default:
 			return state;
 	}

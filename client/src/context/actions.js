@@ -38,3 +38,5 @@ export const LOGOUT_USER = "LOGOUT_USER";
 
 export const SHOW_STATS_BEGIN = "SHOW_STATS_BEGIN";
 export const SHOW_STATS_SUCCESS = "SHOW_STATS_SUCCESS";
+
+export const CHANGE_PAGE = "CHANGE_PAGE";

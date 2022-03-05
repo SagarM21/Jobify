@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import {
+	CHANGE_PAGE,
 	CLEAR_ALERT,
 	CLEAR_FILTERS,
 	CLEAR_VALUES,
@@ -221,8 +222,8 @@ const AppProvider = ({ children }) => {
 	};
 
 	const getJobs = async () => {
-		const { search, searchStatus, searchType, sort } = state;
-		let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
+		const { page, search, searchStatus, searchType, sort } = state;
+		let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
 		if (search) {
 			url = url + `&search=${search}`;
 		}
@@ -308,6 +309,10 @@ const AppProvider = ({ children }) => {
 		clearAlert();
 	};
 
+	const changePage = (page) => {
+		dispatch({ type: CHANGE_PAGE, payload: { page } });
+	};
+
 	useEffect(() => {
 		getJobs();
 	}, []);
@@ -331,6 +336,7 @@ const AppProvider = ({ children }) => {
 				deleteJob,
 				showStats,
 				clearFilters,
+				changePage,
 			}}
 		>
 			{children}{" "}
