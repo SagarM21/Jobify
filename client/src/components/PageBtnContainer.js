@@ -20,10 +20,7 @@ const PageBtnContainer = () => {
 		changePage(newPage);
 	};
 	const pages = Array.from({ length: numOfPages }, (_, index) => {
-		return index + 1;
-		{
-			/* initially zero therefore add 1*/
-		}
+		return index + 1; /* initially zero therefore add 1*/
 	});
 	return (
 		<Wrapper>

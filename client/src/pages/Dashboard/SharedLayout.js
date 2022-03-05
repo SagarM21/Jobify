@@ -1,11 +1,9 @@
 import React from "react";
-import { Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/SharedLayout";
 import { Navbar, SmallSidebar, BigSidebar } from "../../components";
-import { useAppContext } from "../../context/appContext";
 
 const SharedLayout = () => {
-	const { user } = useAppContext();
 	return (
 		<>
 			<Wrapper>

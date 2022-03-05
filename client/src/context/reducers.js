@@ -117,11 +117,8 @@ const reducer = (state, action) => {
 				alertType: "danger",
 				alertText: action.payload.msg,
 			};
-		case HANDLE_CHANGE:
+		case HANDLE_CHANGE /* By default, search will  start from 1st page*/:
 			return { ...state, page: 1, [action.payload.name]: action.payload.value };
-			{
-				/* By default, search will  start from 1st page*/
-			}
 
 		case CREATE_JOB_BEGIN:
 			return { ...state, isLoading: true };

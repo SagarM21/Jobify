@@ -236,7 +236,7 @@ const AppProvider = ({ children }) => {
 				payload: { jobs, totalJobs, numOfPages },
 			});
 		} catch (error) {
-			console.log(error.response);
+			//console.log(error.response);
 			logoutUser();
 		}
 		clearAlert();
@@ -303,8 +303,8 @@ const AppProvider = ({ children }) => {
 				},
 			});
 		} catch (error) {
-			console.log(error.response);
-			// logoutUser();
+			//console.log(error.response);
+			logoutUser();
 		}
 		clearAlert();
 	};
@@ -315,6 +315,7 @@ const AppProvider = ({ children }) => {
 
 	useEffect(() => {
 		getJobs();
+		// eslint-disable-next-line
 	}, []);
 
 	return (
